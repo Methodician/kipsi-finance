@@ -13,6 +13,7 @@ import {
   ProjectCreate,
   ProjectUpdate,
   Project,
+  DbProject,
 } from "../models/project.models";
 
 export class ProjectService {
@@ -84,7 +85,13 @@ export class ProjectService {
     const _finish$ = new Subject<void>();
 
     this.db.collection("projects").onSnapshot((snapshot) => {
-      const projects = snapshot.docs.map((doc) => doc.data() as Project);
+      const projects = snapshot.docs
+        .map((doc) => doc.data() as DbProject)
+        .map((project) => ({
+          ...project,
+          startDate: project.startDate.toDate(),
+          endDate: project.endDate.toDate(),
+        }));
       _projects$.next(projects);
     });
 
@@ -96,6 +103,13 @@ export class ProjectService {
     const projects$ = _projects$.pipe(
       takeUntil(_finish$),
       startWith([]),
+      map((projects) =>
+        projects.map((project) => ({
+          ...project,
+          startDate: project.startDate,
+          endDate: project.endDate,
+        }))
+      ),
       catchError((err) => {
         console.error(err);
         return [];

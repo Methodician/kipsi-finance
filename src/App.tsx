@@ -9,12 +9,10 @@ import LuxonUtils from "@date-io/luxon";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">Kipsi Thing</header>
+      <header className="App-header">Kipsi Finance Demo</header>
       <MuiPickersUtilsProvider utils={LuxonUtils}>
         <Router>
           <Route exact path="/" component={ProjectList} />
-          <Route exact path="/project/create" component={ProjectForm} />
-          <Route exact path="/project/update/:id" component={ProjectForm} />
         </Router>
       </MuiPickersUtilsProvider>
     </div>
