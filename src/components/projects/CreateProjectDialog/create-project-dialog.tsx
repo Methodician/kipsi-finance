@@ -9,15 +9,16 @@ import { useState } from "react";
 import { getProjectService } from "../../../firebase";
 import { Project, ProjectCreate } from "../../../models/project.models";
 import ProjectForm from "../ProjectForm/project-form";
+const PROJECT_STUB: ProjectCreate = {
+  name: "",
+  description: "",
+  startDate: new Date(),
+  endDate: new Date(),
+};
 
 const CreateProjectDialog = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [project, setProject] = useState<ProjectCreate>({
-    name: "",
-    description: "",
-    startDate: new Date(),
-    endDate: new Date(),
-  });
+  const [project, setProject] = useState<ProjectCreate>(PROJECT_STUB);
   const { createProject } = getProjectService();
 
   const handleChange = (change: { name: keyof Project; value: any }) => {
@@ -26,6 +27,7 @@ const CreateProjectDialog = () => {
 
   const handleSubmit = () => {
     createProject(project);
+    setProject(PROJECT_STUB);
     setIsOpen(false);
   };
 

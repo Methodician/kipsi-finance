@@ -49,6 +49,7 @@ export class ExpenseService {
 
   // Must be careful to remove the expense from the project's expenseIds
   // array. Ideally we would do this in a transaction.
+  // Probably should be done here...
   deleteExpense = (expenseId: string) => {
     return this.db.doc(`expenses/${expenseId}`).delete();
   };

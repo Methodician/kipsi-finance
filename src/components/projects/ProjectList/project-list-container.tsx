@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { getProjectService } from "../../../firebase";
 import { Project } from "../../../models/project.models";
-import CreateProjectDialog from "../CreateProjectDialog/create-project-dialog";
 import ProjectList from "./project-list-view";
 
 function ProjectListContainer() {
@@ -14,12 +13,7 @@ function ProjectListContainer() {
     return cleanup;
   }, [projectService]);
 
-  return (
-    <>
-      <CreateProjectDialog />
-      <ProjectList projects={projects} />
-    </>
-  );
+  return <ProjectList projects={projects} />;
 }
 
 export default ProjectListContainer;
