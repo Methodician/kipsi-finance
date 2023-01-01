@@ -124,22 +124,10 @@ export class ProjectService {
     return { projects$, cleanup };
   };
 
-  // later can use this kind of thing for search by creating an observable of search query
-  // const withLatestFromProjects$ = this.filteredProjects$.pipe(
-  //   withLatestFrom(this.searchQuery$),
-  //   map(([projects, searchQuery]) => {
-  //     return projects.filter(
-  //       (project) =>
-  //         project.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //         project.description.toLowerCase().includes(searchQuery.toLowerCase())
-  //     );
-  //   })
-  // );
-
   filteredProjects$ = (filter: string) => {
     const { projects$, cleanup } = this.allProjects$();
     const filteredProjects$ = projects$.pipe(
-      debounceTime(300), // minor performance optimization
+      debounceTime(300), // minor performance optimization but does not matter unless we use observables for the query
       map((projects) => {
         return projects.filter(
           (project) =>
