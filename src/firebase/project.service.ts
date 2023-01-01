@@ -58,8 +58,13 @@ export class ProjectService {
       .collection("projects")
       .doc(id)
       .onSnapshot((doc) => {
-        const project = doc.data();
-        if (project) {
+        const dbProject = doc.data() as DbProject | undefined;
+        if (dbProject) {
+          const project = {
+            ...dbProject,
+            startDate: dbProject.startDate.toDate(),
+            endDate: dbProject.endDate.toDate(),
+          };
           _project$.next(project as Project);
         }
       });
@@ -71,9 +76,9 @@ export class ProjectService {
 
     const project$ = _project$.pipe(
       takeUntil(_finish$),
-      catchError((err) => {
+      catchError((err, caught) => {
         console.error(err);
-        return [];
+        return caught;
       })
     );
 
@@ -110,9 +115,9 @@ export class ProjectService {
           endDate: project.endDate,
         }))
       ),
-      catchError((err) => {
+      catchError((err, caught) => {
         console.error(err);
-        return [];
+        return caught;
       })
     );
 

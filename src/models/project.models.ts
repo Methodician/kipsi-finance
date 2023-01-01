@@ -30,4 +30,5 @@ export interface ProjectUpdate {
   description?: string;
   startDate?: Date;
   endDate?: Date;
+  expenseIds?: string[];
 }

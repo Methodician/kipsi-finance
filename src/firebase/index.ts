@@ -1,5 +1,6 @@
 import { initializeApp, firestore } from "firebase/app";
 import "firebase/firestore";
+import { ExpenseService } from "./expense.service";
 import { ProjectService } from "./project.service";
 
 // const firebaseConfig = {
@@ -32,3 +33,4 @@ export const getDb = () => {
 };
 
 export const getProjectService = () => ProjectService.getInstance(getDb());
+export const getExpenseService = () => ExpenseService.getInstance(getDb());

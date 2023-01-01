@@ -2,9 +2,9 @@ import "./App.css";
 
 import ProjectList from "./components/projects/ProjectList";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import ProjectForm from "./components/projects/ProjectForm/project-form";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import LuxonUtils from "@date-io/luxon";
+import ProjectDetail from "./components/projects/ProjectDetail/project-detail";
 
 function App() {
   return (
@@ -13,6 +13,7 @@ function App() {
       <MuiPickersUtilsProvider utils={LuxonUtils}>
         <Router>
           <Route exact path="/" component={ProjectList} />
+          <Route path="/projects/:id" component={ProjectDetail} />
         </Router>
       </MuiPickersUtilsProvider>
     </div>
